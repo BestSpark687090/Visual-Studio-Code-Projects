@@ -5,5 +5,5 @@ const rl = readline.createInterface({
 });
 	rl.question("question here",function(answer) {
 	 setTimeout(() => console.log(answer),1000)
-	rl.close();
+	 rl.close();
 });

@@ -4,6 +4,6 @@ const rl = readline.createInterface({
 	output:process.stdout
 });
 	rl.question("question here",function(answer) {
-	console.log(answer);
+	 setTimeout(() => console.log(answer),1000)
 	rl.close();
 });

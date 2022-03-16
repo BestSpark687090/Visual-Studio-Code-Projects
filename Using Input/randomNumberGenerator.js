@@ -8,9 +8,10 @@ const rl = readline.createInterface({
 });
 rl.question("What will be the minimum number for the random number?", function (answer) {
     var num1 = answer;
+    rl.question("What will be the maximum number for the random number?", function (answer) {
+        var num2 = answer;
+        console.log("Your number is: " + Math.floor(Math.random() * num2) + num1);
+        rl.close();
+    });
 });
-rl.question("What will be the maximum number for the random number?", function (answer) {
-    var num2 = answer;
-    rl.close();
-});
-console.log("Your number is: " + Math.floor(Math.random() * num2 + 1) + num1);
+

@@ -1,10 +1,10 @@
 passwordGenerator()
 function passwordGenerator(){
     const passwordRequirements = {
-        1: ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m'],
-        2: ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'],
-        3: ['~','!','@','#','$','%','^','&','*','(',')','_','+','-','=','[',']','|',':',';','<','>','?','.','/',' '],
-        4: ['1','2','3','4','5','6','7','8','9','0'],
+        lowerString: "qwertyuiopasdfghjklzxcvbnm",
+        upperString: "QWERTYUIOPASDFGHJKLZXCVBNM",
+        symbolString: "!@$%&_?",
+        numberString: "1234567890",
     }
     const readline = require('readline');
     const rl = readline.createInterface({
@@ -13,25 +13,42 @@ function passwordGenerator(){
     });
     rl.question("How long do you want the password to be? ",function(answer){
         var length = parseInt(answer);
-        if(length = NaN){
+        if(length == NaN){
             console.log("Please enter a number, not a letter/symbol.");
             rl.close();
         } else{
             var loopTimes = 0
             var checkedNumber = length;
-            var passwordInList = [""]
-            while(checkedNumber !== 0){
-            var number = Math.floor((Math.random() * 4) + 1);
-            var random = Math.floor(Math.random() * passwordRequirements)
-            var charToPush = [passwordRequirements[random]]
-            passwordInList.push.apply(passwordInList,charToPush);
-            console.log(passwordInList);
+            var passString = "";
+            while(loopTimes < length){
+            var stringSelector = Math.floor(Math.random() * 4) + 1;
+            console.log(`${loopTimes} ${checkedNumber} ${stringSelector}`)
+            var letterSelected = Math.floor(Math.random() * 25); //These are decremented by one because things like arrays start at 0.
+            var symbolSelected = Math.floor(Math.random() * 29);
+            var numberSelected = Math.floor(Math.random() * 9)
+            if(stringSelector == 1 ){
+                var lowerChar = passwordRequirements.lowerString.slice(letterSelected,letterSelected + 1)
+                passString += lowerChar; //This compounds the strings.
+                console.log(passString);
+            } else if (stringSelector == 2){
+                var upperChar = passwordRequirements.upperString.slice(letterSelected,letterSelected + 1);
+                passString += upperChar;
+                console.log(passString)
+            } else if(stringSelector == 3){
+                var symbolChar = passwordRequirements.symbolString.slice(symbolSelected,symbolSelected + 1);
+                passString += symbolChar;
+                console.log(passString);
+            } else if(stringSelector == 4){
+                var numberChar = passwordRequirements.numberString.slice(numberSelected,numberSelected + 1);
+                passString += numberChar;
+                console.log(passString)
+            }
             checkedNumber--
             loopTimes++
             if(loopTimes > length + 1) {
-                break;
+                rl.close();
             } else if (checkedNumber == 0) {
-                break;
+                rl.close();
             }
         }
         console.log("working");

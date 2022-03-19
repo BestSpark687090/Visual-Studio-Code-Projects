@@ -1,0 +1,12 @@
+{
+    "name": "esm",
+    "version": "1.0.0",
+    "description": "izza test",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"no test\"&&exit 1"
+    },
+    "type": "module",
+    "author": "BestSpark687090",
+    "license": "ISC"
+}

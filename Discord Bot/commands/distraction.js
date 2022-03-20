@@ -3,10 +3,14 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("distraction")
         .setDescription("Distracts you... or not.")
-        .addStringOption(option => option.setName('input')
+        .addBooleanOption(option => option.setName('input')
             .setDescription('The input to echo back')
         .setRequired(true))
     ,async execute(interaction) {
-     await interaction.reply(`Server Name: ${interaction.guild.name} \nTotal Members: ${interaction.guild.memberCount}`)
+        if(interaction.toString().split(":")[1] == "true"){
+     await interaction.reply(`https://tenor.com/view/distraction-dance-henry-stickmin-fleeing-the-complex-gif-18229769`)
+    } else {
+        await interaction.reply({content: `You don't get distracted.${interaction} `,ephemeral: true})
     }
+}
 }

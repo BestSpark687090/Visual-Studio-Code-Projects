@@ -18,7 +18,7 @@ module.exports = {
                 {name: "Ping Command", value: "Does The Pong \nCommand: `/ping`"},
                 {name: "Server Command", value: "Gets Server Info.\nCommand: `/server`"},
                 {name: "User Command", value: "Gets User Info About You.\nCommand: `/user`"},
-                {name: "Distraction Command", value: "Distracts You... or not. \nCommand: `/distraction`"},
+                {name: "Distraction Command", value: "Distracts You... or not. \nCommand: `/distraction (true/false)`"},
             )
             .addField("Thanks to Discord.js", "for making this so I can make a Discord Bot in JavaScript!")
             .setTimestamp()

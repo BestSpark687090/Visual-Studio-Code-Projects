@@ -17,6 +17,10 @@ for (const file of commandFiles) {
     const command = require(`./commands/${file}`)
     client.commands.set(command.data.name, command);
 }
+(async () => {
+ const channel = client.channels.cache.get("id");
+ await channel.send("Online!")
+})
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
     const command = client.commands.get(interaction.commandName);

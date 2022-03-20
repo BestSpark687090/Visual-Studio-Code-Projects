@@ -4,7 +4,7 @@ const {REST} = require('@discordjs/rest');
 const {Routes} = require("discord-api-types/v9");
 const {token} = require("./config.json");
 const commands = [
-    new SlashCommandBuilder().setName("blank").setDescription("just to get rid of dupes"),
+
 ]
     .map(command => command.toJSON());
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));

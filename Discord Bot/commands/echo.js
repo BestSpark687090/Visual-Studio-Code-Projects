@@ -7,4 +7,7 @@ module.exports = {
         option.setName("input")
             .setDescription("input to echo")
             .setRequired(true))
+            ,async execute(interaction) {
+                await interaction.reply(`You said: ${interaction.toString().split(":")[1]}`)
+}
 }

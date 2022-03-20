@@ -14,11 +14,11 @@ module.exports = {
             .addFields(
                 {name: "Commands", value:"That Are Avaliable:"},
                 {name: "\u200B", value:"\u200B"},
-                {name: "Echo Command", value: "Repeats what you said back to you."},
-                {name: "Ping Command", value: "Does The Pong"},
-                {name: "Server Command", value: "Gets Server Info."},
-                {name: "User Command", value: "Gets User Info About You."},
-                {name: "Distraction Command", value: "Distracts You... or not."},
+                {name: "Echo Command", value: "Repeats what you said back to you. \nCommand: `/echo (input)`"},
+                {name: "Ping Command", value: "Does The Pong \nCommand: `/ping`"},
+                {name: "Server Command", value: "Gets Server Info.\nCommand: `/server`"},
+                {name: "User Command", value: "Gets User Info About You.\nCommand: `/user`"},
+                {name: "Distraction Command", value: "Distracts You... or not. \nCommand: `/distraction`"},
             )
             .addField("Thanks to Discord.js", "for making this so I can make a Discord Bot in JavaScript!")
             .setTimestamp()

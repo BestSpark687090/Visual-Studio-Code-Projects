@@ -13,9 +13,9 @@ var extension = "text/"+extensionSlice[1];
         console.log(err)
     }
     res.write(data);
-    return res.end();
+    return res.end(); 
     });
-    }).listen(8080, "192.168.2.41")
+    }).listen(8080)
     console.log("Press Control+C to stop.")
 } catch (error) {
     console.log("It failed. Error code: ${error}")

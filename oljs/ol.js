@@ -1,5 +1,5 @@
 // oneLetter js 
-const { exec } = require("child_process")
+const child = require("child_process")
 const fs = require('node:fs')
 const { buffer } = require('buffer')
 var c = `
@@ -34,13 +34,15 @@ fs.opendir('writehere', (err) => {
 fs.writeFile('writehere/compiledOl.js', c , 'utf8', (err) => {
   if (err) throw err;
 });
-exec('"node "C:/Users/Ryan Smith/source/repos/oljs/writehere/compiledOl.js""', (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-    console.error(`stderr: ${stderr}`);
+const command = child.spawn('node',['C:/Users/Ryan Smith/source/repos/oljs/writehere/compiledOl.js']);
+command.stdout.on('data', (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  command.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+  command.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
   });
 byeBye()
 function byeBye(){

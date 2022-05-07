@@ -34,18 +34,10 @@ fs.opendir('writehere', (err) => {
 fs.writeFile('writehere/compiledOl.js', c , 'utf8', (err) => {
   if (err) throw err;
 });
-const command = child.spawn('node',['C:/Users/Ryan Smith/source/repos/oljs/writehere/compiledOl.js']);
-command.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-  });
-  command.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-  });
-  command.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-  });
+var command = child.spawn('node "C:/Users/Ryan Smith/source/repos/oljs/writehere/compiledOl.js"');
 byeBye()
 function byeBye(){
+    fs.close(0)
     process.exit()
 }
 

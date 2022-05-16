@@ -3,3 +3,8 @@
     width: fit-content;
     size-adjust: 200%;
 }
+.buttons{
+    text-decoration: none;
+    color: black;
+    text-underline-position: calc(99+99);
+}

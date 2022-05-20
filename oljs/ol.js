@@ -34,10 +34,9 @@ fs.opendir('writehere', (err) => {
 fs.writeFile('writehere/compiledOl.js', c , 'utf8', (err) => {
   if (err) throw err;
 });
-var command = child.spawn('node "C:/Users/Ryan Smith/source/repos/oljs/writehere/compiledOl.js"');
+child.exec("node './writehere/compiledOl.js'")
 byeBye()
 function byeBye(){
-    fs.close(0)
     process.exit()
 }
 

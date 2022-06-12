@@ -1,0 +1,1 @@
+import all from "fs";

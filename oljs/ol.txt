@@ -3,24 +3,21 @@ const child = require("child_process")
 const fs = require('node:fs')
 const { buffer } = require('buffer')
 var c = `
-f C() {
+f C() 
     v c = 1
     i (c == 0){
         c.l('Repeated!')
     }e {
         c.l('C is not 0!')
     }
-}
+
 `
-c += "\nEOF"
+
 var bC = parseFloat(c.match(/[}|{]/g).length/2) // bracket check
 console.log(bC)
 if(bC < 1 || bC.length > 1 || bC.toString().includes(".")){
     console.error(TypeError("Uneven amount of brackets!"))
     byeBye()
-}
-if(c.includes(") {" || c.includes("){"))){
-    console.error(TypeError("No function brackets found!"))
 }
 var d1 = c.replace(/i\s/g,'if')
 var d2 = d1.replace(/T/g,'true')
@@ -34,7 +31,9 @@ console.log(`Your code is: ${d7}`)
 fs.opendir('writehere', (err) => {
     if (err) throw err;
 });
-
+fs.writeFile('writehere/compiledOl.js', c , 'utf8', (err) => {
+  if (err) throw err;
+});
 child.exec("node './writehere/compiledOl.js'")
 byeBye()
 function byeBye(){
@@ -46,4 +45,3 @@ function byeBye(){
  aka }else or } else, it compiles to }else
  [2] yes, i know this isn't one letter but since it uses 2 things, it's c.l.
 */
-c.search(/\n/g) - 1

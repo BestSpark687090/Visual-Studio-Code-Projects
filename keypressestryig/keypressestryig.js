@@ -1,6 +1,6 @@
-document.addEventListener('keydown', (event)=> {
-    console.log(event);
-    console.log(event.type);
-    console.log(event.key);
-    console.log(event.code);
-});
+addEventListener('keydown', function (ev) {
+        console.log(ev);
+        console.log(ev.type);
+        console.log(ev.key);
+        console.log(ev.code);
+    });

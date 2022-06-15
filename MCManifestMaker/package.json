@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "name": "manifestmaker",
+  "version": "1.0.0",
+  "description": "Minecraft Bedrock Edition Manifest.json maker",
+  "main": "ManifestMaker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BestSpark687090",
+  "license": "ISC"
+}

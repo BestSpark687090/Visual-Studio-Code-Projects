@@ -8,6 +8,6 @@ module.exports = {
             .setDescription("input to echo")
             .setRequired(true))
             ,async execute(interaction) {
-                await interaction.reply(`You said: ${interaction.toString().split(":")[1]}`)
+                await interaction.reply(`You said: ${interaction.toString().split(":").slice(1).toString().replace(/,/g,':')}`)
 }
 }

@@ -5,12 +5,12 @@ const rl = readline.createInterface({
 });
 
 const fs = require('fs')
-var yes = fs.readFile("C:/Users/Ryan Smith/Desktop/Input In Javascript.txt",function(err,data){
+var yes = fs.readFile("./Input in Javascript.txt",function(err,data){
     var text = data.toString()
     globalThis.text2 = text
     
 });
-rl.question("Where do you want to place the input at?\nType it like ./foldername/filename.js .",function(answer) {
+rl.question("Where do you want to place the input at?\nType it like ./foldername/filename.js: ",function(answer) {
     fs.appendFile(answer,text2,function(){
         //hi
     })

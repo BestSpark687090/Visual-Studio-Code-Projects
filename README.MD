@@ -20,6 +20,8 @@ Have a <strong>GREAT</strong> day!
 
 -BestSpark687090
 
+> ### P.S. Hey there! Just here to let you know that I recently got a new laptop, so that's why the programs with fs which grab the file off of my desktop will be added to the main folder of the repository. Thankfully, the laptop has more computer space than the old one. And i mean a **lot** more space than the old laptop.
+
 ```js
 console.log("Thanks for reading all the way to down here! Or maybe you didn't.")
 console.log("PS: I thought that CSS would work, but fsr it only works on Live Preview lol")

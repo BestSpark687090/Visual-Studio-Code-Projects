@@ -1,7 +1,7 @@
 {
   "name": "code-extension",
   "version": "1.0.0",
-  "description": "ima try my best",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

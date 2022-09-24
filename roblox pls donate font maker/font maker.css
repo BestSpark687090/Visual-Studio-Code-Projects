@@ -1,0 +1,37 @@
+body{
+    background-color: black;
+    color: white;
+}
+.center{
+    text-align: center;
+}
+.right{
+    text-align: right;
+    margin-right: 10%;
+}
+.left{
+    text-align: left;
+    margin-left: 9%;
+    width: max-content;
+}
+.rightDiv{
+    text-align: right;
+    margin-right: 5%;
+    margin-top: -11.3%;
+}
+.invis{
+    color: black;
+}
+.goBack{
+    margin-right: 1%;
+}
+.buttonCenter{
+    position: fixed;
+    left: 50%;
+    margin-left: -5%;
+}
+.text{
+    position: fixed;
+    left: 37%;
+    height: 100px;
+}

@@ -4,7 +4,9 @@
   "description": "",
   "main": "maybe.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "run.bat",
+    "compile": "node maybe.js compile",
+    "interpret": "node maybe.js interpret test.bjs"
   },
   "type":"module",
   "author": "BestSpark687090",

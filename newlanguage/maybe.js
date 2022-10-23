@@ -1,12 +1,15 @@
 //Beginning of Global Variables Section
 var bFA = 0
+//End of Global Variables Section
+//Beginning of Error Messages Section
 const HTML = `There are no valid HTML files in this directory. 
 Please try again with a different directory.`
 const sCE = `Invalid function call: ;`
 const nEQ = `There are an uneven amount of quotation marks. 
 Please check if you have a unterminated string.`
 const fII = `Index variable of for loop must be i`
-//End of Global Variables Section
+const sAZ = `Index must start at 0` 
+//End of Error Messages Section
 //Beginning of Error Classes Section
 class NoHTMLFiles extends Error{
     constructor(message){
@@ -30,19 +33,23 @@ class CompileError extends Error{
 import * as http from "node:http"
 import * as fs from "node:fs"
 var p = process.argv[2]
-if(p.includes("host")){
-    host()
-}else if(p.includes("compile")){
-    compile()
-}else if(p.includes("interpret")){
-    interpret()
+try{
+    if(p.includes("host")){
+        host()
+    }else if(p.includes("compile")){
+        compile()
+    }else if(p.includes("interpret")){
+        interpret()
+    }
+}catch(e){
+    throw new Error("Please type host, compile or interpret after the name of the file.")
 }
 
 function host(){
     fs.readdir(process.argv[3]??".",function(err,files){
         for(var file of files){
             if(file.includes(".html")){
-                startServer(file)
+                startServer(file.replace("c:","C:"))
             }else{
                 bFA++
             }
@@ -51,6 +58,7 @@ function host(){
         if(bFA == files.length){
 throw new NoHTMLFiles(`\x1b[38;35;196m${HTML}\x1b[0m`)
         }
+        return files
     })
 }
 /**
@@ -59,7 +67,7 @@ throw new NoHTMLFiles(`\x1b[38;35;196m${HTML}\x1b[0m`)
  */
 function startServer(fileName){
     http.createServer(function(req,res){
-        fs.readFile(fileName,function(err,data){
+        fs.readFile(process.argv[3]+"\\"+fileName,function(err,data){
             if (err) throw err;
             res.write(data)
             return res.end()
@@ -73,7 +81,7 @@ Click this to open the server in Edge: http://192.168.2.131:8080`)
 //Start of Compile Section
 /*
 Quick note: I kinda want the compiled to be kinda like asm, so like console.log would be
-call(log,"message")
+call(print,"message")
 i think that would be cool
 and for example, the for could be:
 call(for,[starting index],[ending index])
@@ -86,8 +94,10 @@ function compile(){
     fs.readFile(process.argv[3],function(err,data){
         if (err) throw err;
         let file = data.toString()
-            .replaceAll("print(","call(log,")
-
+            .replaceAll("print(","call(print,")
+            .replaceAll("for(var i=","call(for,")
+            .replaceAll(/,i([><=]*)/g,",")
+            .replaceAll("++","")
         if(file.match(/;$\n/g)??false){
 throw new CompileError(sCE)
         }
@@ -96,6 +106,9 @@ throw new CompileError(nEQ)
         }
         if(file.match(/for[(][a-hj-z]=[0-9]*,/g)??false){
 throw new CompileError(fII)
+        }
+        if(file.match(/for[(],[1-9]*,/g)??false){
+throw new CompileError(sAZ)
         }
         WriteCompile(file)
     })
@@ -109,10 +122,19 @@ function WriteCompile(file){
 //Start of Interpret Section
 function interpret(){
     fs.readFile('compiled.cbjs',function(err,data){
-        if(err) throw err
+        if(err) throw err;
         var file = data.toString()
-            .replaceAll("call(log,","console.log(")
+            .replaceAll("call(print,","console.log(")
+            .replaceAll("call(for,","for(var i=")
+            .replaceAll(",)",",i++)")
+            
+
+
+
+
+
             .replaceAll(",",";")
+            .replaceAll("=0;","=0;i<=")
         if(eval(file)){
             console.log(eval(file))
         }

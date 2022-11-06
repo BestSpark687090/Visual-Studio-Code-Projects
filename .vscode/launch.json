@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "C:\\Users\\esmit\\source\\repos\\newlanguage\\maybe.js",
+            "program": "C:\\Users\\esmit\\source\\repos\\Visual-Studio-Code-Projects\\newlanguage\\maybe.js",
             "args": ["host","${fileDirname}"],
             "outFiles": [
                 "${workspaceFolder}/**/*.js",

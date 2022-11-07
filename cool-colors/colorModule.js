@@ -13,7 +13,7 @@
  * console.log(`${red()}Hello!${reset()}`) // Returns the word Hello! in red text
  * ```
  */
-function red(text = true, bg = false, better = false){
+ function red(text = true, bg = false, better = false){
     if((text && bg && better) || (text && bg)){
         return "";
     }
@@ -224,13 +224,15 @@ function red(text = true, bg = false, better = false){
 }
 /**
  * Bold text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text bold.
  */
-function bold(){
+ function bold(){
     return "\x1b[1m"
 }
 /**
  * Darker text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text darker.
  */
  function darker(){
@@ -238,6 +240,7 @@ function bold(){
 }
 /**
  * Italic text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text italic.
  */
  function italic(){
@@ -245,6 +248,7 @@ function bold(){
 }
 /**
  * Reversed text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text color your background color and
  * your BG color your text color..
  */
@@ -253,6 +257,7 @@ function bold(){
 }
 /**
  * Crossed out text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text crossed out.
  */
  function crossed(){
@@ -260,6 +265,7 @@ function bold(){
 }
 /**
  * Double underlined text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your text double underlined.
  */
  function double_underline(){
@@ -267,6 +273,7 @@ function bold(){
 }
 /**
  * Gray text.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @param {boolean} bg If you want a gray background, set this to true. 
  * Otherwise, don't add this parameter.
  * @returns A code which makes your text gray or your background gray.
@@ -279,15 +286,20 @@ function bold(){
 }
 /**
  * Black BG.
+ * > Note: You **MUST** use the reset function afterwards to not have that type of text for the entire thing.
  * @returns A code which makes your background black.
  */
- function bold(){
+ function black(){
     return "\x1b[40m"
 }
-function reset(){
+/**
+ * Color resetter.
+ * @returns A value which resets the color.
+ */
+ function reset(){
     return "\x1b[0m"
 }
 export{
     red,green,yellow,blue,purple,lBlue,white,bold,darker,italic,reverse,crossed,
-    double_underline,gray,reset
+    double_underline,gray,black,reset
 }

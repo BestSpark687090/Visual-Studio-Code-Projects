@@ -292,7 +292,31 @@
  function black(message){
     return "\x1b[40m" + message + "\x1b[0m"
 }
+/**
+ * A color setter which you give the RGB values as numbers and it gives you that colored code.
+ * @param {number} r 
+ * @param {number} g 
+ * @param {number} b 
+ * @returns 
+ */
+ function numCustom(r=0,g=0,b=0){
+    return `\x1b[38;2;${r};${g};${b}m`
+}
+/**
+ * A color setter which you give the RGB values as hex values and it gives you that colored code.
+ * @param {string} message
+ * @param {string|number} r 
+ * @param {string|number} g 
+ * @param {string|number} b 
+ * @returns 
+ */
+ function hexCustom(message,r="FF",g="FF",b="FF"){
+    const redn = parseInt(r.toString().padStart(3,"0"),16)
+    const greenn = parseInt(g.toString().padStart(3,"0"),16)
+    const bluen = parseInt(b.toString().padStart(3,"0"),16)
+    return `\x1b[38;2;${redn};${greenn};${bluen}m${message}\x1b[0m`
+}
 export{
     red,green,yellow,blue,purple,lBlue,white,bold,darker,italic,reverse,crossed,
-    double_underline,gray,black
+    double_underline,gray,black,numCustom,hexCustom
 }

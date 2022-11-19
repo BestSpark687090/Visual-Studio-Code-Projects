@@ -15,4 +15,6 @@ ${c.red()}a${c.reset()}
 ${c.reverse()}a${c.reset()}
 ${c.white()}a${c.reset()}
 ${c.yellow()}a${c.reset()}
+${c.numCustom(255,0,0)}a${c.reset()}
+${c.hexCustom("FF",0,0)}
 `)

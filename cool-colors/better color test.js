@@ -1,2 +1,2 @@
 import * as c from './betterColorModule.js'
-console.log(c.red("Hello!"))
+console.log(c.hexCustom("hi",'FF',0,0))

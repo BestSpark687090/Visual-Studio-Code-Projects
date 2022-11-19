@@ -299,7 +299,27 @@
  function reset(){
     return "\x1b[0m"
 }
+/**
+ * A color setter which you give the RGB values as numbers and it gives you that colored code.
+ * @param {number} r 
+ * @param {number} g 
+ * @param {number} b 
+ * @returns 
+ */
+function numCustom(r=0,g=0,b=0){
+    return `\x1b[38;2;${r};${g};${b}m`
+}
+/**
+ * A color setter which you give the RGB values as hex values and it gives you that colored code.
+ * @param {string|number} r 
+ * @param {string|number} g 
+ * @param {string|number} b 
+ * @returns 
+ */
+ function hexCustom(r="FF",g="FF",b="FF"){
+    return `\x1b[38;2;${parseInt(r.padStart(2,"0"),16)};${parseInt(g.padStart(2,"0"),16)};${parseInt(b.padStart(2,"0"),16)}m`
+}
 export{
     red,green,yellow,blue,purple,lBlue,white,bold,darker,italic,reverse,crossed,
-    double_underline,gray,black,reset
+    double_underline,gray,black,reset,numCustom,hexCustom
 }

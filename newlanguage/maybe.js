@@ -66,16 +66,21 @@ throw new NoHTMLFiles(`\x1b[38;35;196m${HTML}\x1b[0m`)
  * @param {string} fileName 
  */
 function startServer(fileName){
-    http.createServer(function(req,res){
+    var server = http.createServer(function(req,res){
         fs.readFile(process.argv[3]+"\\"+fileName,function(err,data){
             if (err) throw err;
             res.write(data)
             return res.end()
         })
-    }).listen(8080,"192.168.2.131")
-    console.log(`The server is now being hosted on 192.168.2.131 on port 8080.
-Click this to open the server in Edge: http://192.168.2.131:8080`)
-    console.log("Ctrl + C to stop the server.")
+    })
+    try{
+        server.listen(8080)
+    }catch(e){
+        throw new NoHTMLFiles("Port 8080 is already being used. Please close any servers you have on port 8080.")
+    }
+    console.log(`The server is now being hosted on localhost on port 8080.
+Click this to open the server in your default browser: http://localhost:8080`)
+    console.log("\x1b[92mTip:\x1b[0m Use \x1b[21mCtrl + C\x1b[0m to stop the server.")
 }
 // End of Host Section
 //Start of Compile Section

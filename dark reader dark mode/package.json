@@ -1,0 +1,30 @@
+{
+  "name": "dark-reader-dark-mode",
+  "displayName": "Dark Reader Dark Mode",
+  "description": "It's like you're using Dark Reader on the VS Code Website!",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.71.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Dark Reader",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Dark Reader-color-theme.json"
+      },
+      {
+        "label": "Darker Reader",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Darkest-Reader-color-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://"
+  }
+}

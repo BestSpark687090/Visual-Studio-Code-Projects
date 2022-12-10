@@ -74,7 +74,7 @@ function startServer(fileName){
         })
     })
     try{
-        server.listen(8080)
+        server.listen(8080,"192.168.2.153")
     }catch(e){
         throw new NoHTMLFiles("Port 8080 is already being used. Please close any servers you have on port 8080.")
     }

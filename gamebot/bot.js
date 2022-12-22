@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Events, GatewayIntentBits, Guild } = require('discord.js');
 const dotenv = require('dotenv')
 const repl = require('repl')
 const commands = require('./commands')
@@ -49,3 +49,27 @@ function done(){
     prompt.displayPrompt()
     channel.sendTyping(10)
 }
+/*
+guild.channels.cache.find(channel => channel.name === "general");
+*/
+prompt.defineCommand('channel',{
+    help: "Changes the channel you chat in.",
+    action: function(newChannel){
+        if(newChannel == ""){
+            console.log(`You are in the channel #${channel.name}.`)
+        }else{
+            channel = channel.guild.channels.cache.find(channel => channel.name === newChannel);
+        }
+        done()
+    },
+})
+client.once(Events.MessageCreate, msg => {
+    console.log(msg.content)
+});
+setInterval(async function(){
+    channel.sendTyping()
+}, 1000);
+replServer.on('exit', () => {
+    console.log('Received "exit" event from repl!');
+    process.exit();
+  });

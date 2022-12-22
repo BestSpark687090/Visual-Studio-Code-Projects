@@ -4,5 +4,17 @@
         "HP": 0,
         "Gold": 0,
         "MP": 0
+    },
+    "Collin":{
+        "Type": "",
+        "HP": 0,
+        "Gold": 0,
+        "MP": 0
+    },
+    "Landen":{
+        "Type": "",
+        "HP": 0,
+        "Gold": 0,
+        "MP": 0
     }
 }

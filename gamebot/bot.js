@@ -1,9 +1,11 @@
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits, Guild } = require('discord.js');
+const { Client, Events, GatewayIntentBits } = require('discord.js');
 const dotenv = require('dotenv')
-const repl = require('repl')
-const commands = require('./commands')
 dotenv.config()
+const repl = require('repl')
+const commands = require('./commands/stats')
+const randomOrg = require("random-org")
+var random = new randomOrg({apiKey: process.env.apiKey.toString()})
 var message;
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -74,3 +76,26 @@ setInterval(async function(){
 prompt.on('exit', () => {
     process.exit();
 });
+prompt.defineCommand("roll",{
+    help: "Lets you choose a dice to roll.",
+    action: function(dice){
+        let max = dice.split('d')
+        max = max[max.length-1]
+        let roll;
+        random.generateIntegers({min: 1, max: max, n: 1}).then(function(result){
+            roll = result.random.data[0]
+            message = channel.send(`You rolled a ${roll}.`).then(function(msg){return msg})
+            done()
+        })
+    }
+})
+prompt.defineCommand("delete",{
+    help: "Deletes the amount of messages from the channel",
+    action: function(num){
+        channel.bulkDelete(num)
+            .then(function(messages){
+                console.log(messages)
+            })
+        //message.delete().then(msg).catch(console.error)
+    },
+})

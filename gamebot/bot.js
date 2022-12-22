@@ -67,9 +67,10 @@ client.once(Events.MessageCreate, msg => {
     console.log(msg.content)
 });
 setInterval(async function(){
-    channel.sendTyping()
+    if(channel){
+        channel.sendTyping()
+    }
 }, 1000);
-replServer.on('exit', () => {
-    console.log('Received "exit" event from repl!');
+prompt.on('exit', () => {
     process.exit();
-  });
+});

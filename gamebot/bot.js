@@ -1,15 +1,16 @@
-// Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const dotenv = require('dotenv')
-const stats = require('./stats.json')
-dotenv.config()
 const repl = require('repl')
-const randomOrg = require("random-org")
+const randomOrg = require("random-org");
+const stats = require('./commands/stats');
+const { statSync } = require('fs');
+dotenv.config()
 var random = new randomOrg({apiKey: process.env.apiKey.toString()})
 var message;
-// Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 let channel;
+let commands = []
+//const stats = require('./stats.json')
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
@@ -22,9 +23,9 @@ const prompt = repl.start({
     eval: function(cmd,context,filename,callback){
         message = channel.send(cmd
             .replaceAll(":d20:","<:d20:1055642144615972884>")
-            .replaceAll(":smalld6:","<:smalld6:1055642146004287628>")
-            .replaceAll(":bigd6:","<:bigd6:1055641555244961803>")
-            .replaceAll(":d6:","<:bigd6:1055641555244961803>")).then(function(msg){return msg})
+            .replaceAll(":bigd6:","<:d6:1055641555244961803>")
+            .replaceAll(":d6:","<:d6:1055641555244961803>")
+            ).then(function(msg){return msg})
         done()
     },
     
@@ -75,6 +76,15 @@ prompt.defineCommand('channel',{
 client.once(Events.MessageCreate, msg => {
     console.log("hi")
     console.log(msg.content)
+});
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	try {
+		await stats.execute(interaction);
+	} catch (error) {
+		console.error(error);
+	}
 });
 setInterval(async function(){
     if(channel){

@@ -11,6 +11,7 @@ const rest = new REST({version: '10'}).setToken(process.env.token);
             Routes.applicationCommands(process.env.clientId),
             {body: commands}
         )
+        console.log("did run?")
     }catch(e){
         console.error(e)
     }

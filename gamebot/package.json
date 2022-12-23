@@ -3,5 +3,15 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "random-org": "^2.2.0"
-  }
+  },
+  "name": "gamebot",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "devDependencies": {},
+  "scripts": {
+    "run": "node .\\bot.js"
+  },
+  "author": "BestSpark687090",
+  "license": "ISC",
+  "description": "discord bot"
 }

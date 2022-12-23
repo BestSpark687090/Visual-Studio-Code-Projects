@@ -1,15 +1,20 @@
-const { Client, Events, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, Events, GatewayIntentBits, EmbedBuilder, ActivityType} = require('discord.js');
 const dotenv = require('dotenv')
 const repl = require('repl')
 const randomOrg = require("random-org");
-const stats = require('./commands/stats');
-const { statSync } = require('fs');
 dotenv.config()
 var random = new randomOrg({apiKey: process.env.apiKey.toString()})
 var message;
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds], presence: {
+    status: "online",
+    activities: [{
+        name: "Games with you!",
+        type: ActivityType.Playing
+    }]
+} });
 let channel;
 let commands = []
+
 //const stats = require('./stats.json')
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
@@ -76,15 +81,6 @@ prompt.defineCommand('channel',{
 client.once(Events.MessageCreate, msg => {
     console.log("hi")
     console.log(msg.content)
-});
-client.on(Events.InteractionCreate, async interaction => {
-	if (!interaction.isChatInputCommand()) return;
-
-	try {
-		await stats.execute(interaction);
-	} catch (error) {
-		console.error(error);
-	}
 });
 setInterval(async function(){
     if(channel){

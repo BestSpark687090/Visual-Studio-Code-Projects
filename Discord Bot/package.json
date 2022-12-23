@@ -14,5 +14,8 @@
     "Discord-Bot"
   ],
   "author": "BestSpark687090",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  }
 }

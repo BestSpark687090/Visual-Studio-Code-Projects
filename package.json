@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BestSpark687090/Visual-Studio-Code-Projects/issues"
   },
-  "homepage": "https://github.com/BestSpark687090/Visual-Studio-Code-Projects#readme"
+  "homepage": "https://github.com/BestSpark687090/Visual-Studio-Code-Projects#readme",
+  "devDependencies": {
+    "typescript": "^4.9.4"
+  }
 }

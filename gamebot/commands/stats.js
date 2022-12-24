@@ -32,7 +32,7 @@ If this is not provided, this will automatically get your stats.`)
             {name: "MP", value: mp}
         )
         .setFooter("Made by BestSpark687090")
-        await interaction.reply({embeds: [statsEmbed]})
+        await interaction.reply({content: "Here you go:",embeds: [statsEmbed]})
         }catch(e){
             await interaction.reply(e)
         }

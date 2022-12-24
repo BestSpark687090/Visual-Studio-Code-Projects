@@ -1,4 +1,4 @@
-const { Client, Events, GatewayIntentBits, EmbedBuilder, ActivityType, Collection } = require('discord.js');
+const { Client, Events, GatewayIntentBits, ActivityType, Collection, PermissionsBitField, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const dotenv = require('dotenv')
 const repl = require('repl')
 const randomOrg = require("random-org");
@@ -9,6 +9,7 @@ var message;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 let firstLine = true
 let channel;
+let guild = client.guilds.cache.get('1053340010901950576')
 let commands = []
 client.commands = new Collection();
 //const stats = require('./stats.json')
@@ -19,7 +20,6 @@ client.once(Events.ClientReady, c => {
     channel = client.channels.cache.get('1053340012021821593');
 });
 client.login(process.env.token);
-
 const prompt = repl.start({
     prompt: "Message to send: ",
     eval: function(cmd,context,filename,callback){
@@ -159,16 +159,16 @@ prompt.defineCommand('stats',{
 })
 too much error, wont fix
 */
-client.on(Events.InteractionCreate, async interaction => {
-    if(!interaction.isCommand()) return;
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return;
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        await interaction.reply({ content: `error occured. Code: ${error}`,ephemeral: true})
-    }
-});
+// client.on(Events.InteractionCreate, async interaction => {
+//     if(!interaction.isCommand()) return;
+//     const command = client.commands.get(interaction.commandName);
+//     if (!command) return;
+//     try {
+//         await command.execute(interaction);
+//     } catch (error) {
+//         await interaction.reply({ content: `error occured. Code: ${error}`,ephemeral: true})
+//     }
+// });
 prompt.defineCommand('activity',{
     help: "does something",
     action: function(string){
@@ -181,5 +181,96 @@ prompt.defineCommand("eval",{
     action: function(evaluated){
         console.log(eval(evaluated))
         done()
+    }
+})
+prompt.defineCommand('muteall',{
+    help: "Gives everyone the muted role for the VC so they are muted.",
+    action: function(){
+        guild.roles.everyone.setPermissions([PermissionsBitField.Flags.Speak])
+    }
+})
+
+prompt.defineCommand("button",{
+    help: "Sends a cool button",
+    action: function(){
+        const row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId('yipeee!')
+					.setLabel('Red Button!')
+					.setStyle(ButtonStyle.Danger),
+			);
+        channel.send({content: "click da button", components: [row], ephemeral: true})
+        done()
+    }
+})
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isButton()) return;
+    const filter = i => true
+
+    const collector = interaction.channel.createMessageComponentCollector({time: 15000 });
+    
+    collector.on('collect', async i => {
+        console.log("clicked",i)
+        channel.send({content: i.toString(),ephemeral: true,})
+        return;
+    });
+    
+    collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+});
+const { ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+/*
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === 'stats') {
+		// Create the modal
+		const modal = new ModalBuilder()
+			.setCustomId('myModal')
+			.setTitle('My Modal');
+
+		// Add components to modal
+
+		// Create the text input components
+		const favoriteColorInput = new TextInputBuilder()
+			.setCustomId('favoriteColorInput')
+		    // The label is the prompt the user sees for this input
+			.setLabel("What's your favorite color?")
+		    // Short means only a single line of text
+			.setStyle(TextInputStyle.Short);
+
+		const hobbiesInput = new TextInputBuilder()
+			.setCustomId('hobbiesInput')
+			.setLabel("What's some of your favorite hobbies?")
+		    // Paragraph means multiple lines of text.
+			.setStyle(TextInputStyle.Paragraph);
+
+		// An action row only holds one text input,
+		// so you need one action row per text input.
+		const firstActionRow = new ActionRowBuilder().addComponents(favoriteColorInput);
+		const secondActionRow = new ActionRowBuilder().addComponents(hobbiesInput);
+
+		// Add inputs to the modal
+		modal.addComponents(firstActionRow, secondActionRow);
+
+		// Show the modal to the user
+		await interaction.showModal(modal);
+	}
+});
+*/
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isModalSubmit()) return;
+
+	// Get the data entered by the user
+	const favoriteColor = interaction.fields.getTextInputValue('favoriteColorInput');
+	const hobbies = interaction.fields.getTextInputValue('hobbiesInput');
+	console.log({ favoriteColor, hobbies });
+    interaction.reply("ok i done")
+});
+client.on(Events.InteractionCreate, interaction => {
+    if(!interaction.isChatInputCommand()) return;
+    if(interaction.commandName = "stats"){
+        const stats = require("./commands/stats")
+        stats.execute(interaction)
     }
 })

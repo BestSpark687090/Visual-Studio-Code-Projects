@@ -1,38 +1,31 @@
-const { REST, Routes } = require('discord.js');
-const dotenv = require('dotenv')
+const fs = require("node:fs")
+const {SlashCommandBuilder} = require("@discordjs/builders");
+const {REST} = require('@discordjs/rest');
+const {Routes} = require("discord-api-types/v9");
+const dotenv = require("dotenv")
 dotenv.config()
-const fs = require('node:fs');
+const commands = [
 
-const commands = [];
-// Grab all the command files from the commands directory you created earlier
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
-// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+]
+    .map(command => command.toJSON());
+const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+//const guildId = "954886875762532392";
+const clientId = "772488918628958259"
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	commands.push(command.data.toJSON());
-}
-
-// Construct and prepare an instance of the REST module
-const rest = new REST({ version: '10' }).setToken(process.env.token);
-
-// and deploy your commands!
-(async () => {
-	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
-
-		// The put method is used to fully refresh all commands in the guild with the current set
-		const data = await rest.put(
-			Routes.applicationCommands(process.env.clientId),
-			{ body: commands },
-		);
-        await rest.delete(Routes.applicationCommand(process.env.clientId, '1055585302879678524'))
-	    .then(() => console.log('Successfully deleted application command'))
-	    .catch(console.error);
-
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-	} catch (error) {
-		// And of course, make sure you catch and log any errors!
-		console.error(error);
-	}
+    const command = require(`./commands/${file}`)
+    commands.push(command.data.toJSON());
+}  
+const rest = new REST({version: "9"}).setToken(process.env.token);
+(async() => {
+try {
+    console.log("Refreshing Started...")
+    await rest.put(
+        Routes.applicationCommands(process.env.clientId),
+        { body: commands },
+    );
+    console.log('ok done ')
+    } catch (error) {
+    console.error(error)
+    }
 })();
+

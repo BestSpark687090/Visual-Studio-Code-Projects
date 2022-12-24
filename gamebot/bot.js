@@ -1,31 +1,29 @@
-const { Client, Events, GatewayIntentBits, EmbedBuilder, ActivityType} = require('discord.js');
+const { Client, Events, GatewayIntentBits, EmbedBuilder, ActivityType, Collection } = require('discord.js');
 const dotenv = require('dotenv')
 const repl = require('repl')
 const randomOrg = require("random-org");
+
 dotenv.config()
 var random = new randomOrg({apiKey: process.env.apiKey.toString()})
 var message;
-const client = new Client({ intents: [GatewayIntentBits.Guilds], presence: {
-    status: "online",
-    activities: [{
-        name: "Games with you!",
-        type: ActivityType.Playing
-    }]
-} });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+let firstLine = true
 let channel;
 let commands = []
-
+client.commands = new Collection();
 //const stats = require('./stats.json')
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
 client.once(Events.ClientReady, c => {
-    client.user.setActivity("you playing games with this bot",{type: "WATCHING"})
+    c.user.setActivity("you playing games with this bot",{type: "WATCHING"})
     channel = client.channels.cache.get('1053340012021821593');
 });
 client.login(process.env.token);
+
 const prompt = repl.start({
     prompt: "Message to send: ",
     eval: function(cmd,context,filename,callback){
+        client.user.setActivity("games with you!",{type: ActivityType.Playing})
         message = channel.send(cmd
             .replaceAll(":d20:","<:d20:1055642144615972884>")
             .replaceAll(":bigd6:","<:d6:1055641555244961803>")
@@ -78,6 +76,7 @@ prompt.defineCommand('channel',{
         
     },
 })
+
 client.once(Events.MessageCreate, msg => {
     console.log("hi")
     console.log(msg.content)
@@ -86,8 +85,19 @@ setInterval(async function(){
     if(channel){
         channel.sendTyping()
     }
+
 }, 1000);
+setInterval(async function(){
+    if(firstLine){
+        client.user.setActivity("games with you!",{type: ActivityType.Playing})
+        firstLine = !firstLine
+    }else{
+        client.user.setActivity("...maybe",{type: ActivityType.Custom})
+        firstLine = !firstLine
+    }
+},2000)
 prompt.on('exit', () => {
+    client.user.setActivity("games with you!",{type: ActivityType.Playing})
     process.exit();
 });
 prompt.defineCommand("roll",{
@@ -149,3 +159,27 @@ prompt.defineCommand('stats',{
 })
 too much error, wont fix
 */
+client.on(Events.InteractionCreate, async interaction => {
+    if(!interaction.isCommand()) return;
+    const command = client.commands.get(interaction.commandName);
+    if (!command) return;
+    try {
+        await command.execute(interaction);
+    } catch (error) {
+        await interaction.reply({ content: `error occured. Code: ${error}`,ephemeral: true})
+    }
+});
+prompt.defineCommand('activity',{
+    help: "does something",
+    action: function(string){
+        client.user.setActivity(string, { type: ActivityType.Playing });
+        done()
+    }
+})
+prompt.defineCommand("eval",{
+    help: "Does normal JS things",
+    action: function(evaluated){
+        console.log(eval(evaluated))
+        done()
+    }
+})

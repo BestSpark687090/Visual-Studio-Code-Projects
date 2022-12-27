@@ -1,0 +1,21 @@
+{
+    "name": "setup-compile",
+    "version": "1.0.0",
+    "main": "setup-compile.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "BestSpark687090",
+    "license": "ISC",
+    "pkg": {
+        "scripts": "src/**/*.js",
+        "assets": "views/**/*",
+        "targets": [
+            "node14-win"
+        ],
+        "outputPath": "dist"
+    },
+    "bin": "src/compile.js",
+    "keywords": [],
+    "description": ""
+}

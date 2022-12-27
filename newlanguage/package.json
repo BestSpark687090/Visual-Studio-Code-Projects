@@ -8,7 +8,14 @@
     "compile": "node maybe.js compile",
     "interpret": "node maybe.js interpret test.bjs"
   },
-  "type":"module",
+  "type":"commonjs",
   "author": "BestSpark687090",
-  "license": "ISC"
+  "license": "ISC",
+  "pkg": {
+    "scripts": "*.js",
+    "assets": "views/**/*",
+    "targets": [ "node14-win" ],
+    "outputPath": "dist"
+  },
+  "bin": "maybe.js"
 }

@@ -30,8 +30,8 @@ class CompileError extends Error{
 
 //End of Error Classes Section
 //Note: This language will be compiled and interpreted at the same time.
-import * as http from "node:http"
-import * as fs from "node:fs"
+const { createServer } = require('node:http')
+const { writeFile, readFile, readdir } = require('node:fs')
 var p = process.argv[2]
 try{
     if(p.includes("host")){
@@ -46,7 +46,7 @@ try{
 }
 
 function host(){
-    fs.readdir(process.argv[3]??".",function(err,files){
+    readdir(process.argv[3]??".",function(err,files){
         for(var file of files){
             if(file.includes(".html")){
                 startServer(file.replace("c:","C:"))
@@ -66,8 +66,8 @@ throw new NoHTMLFiles(`\x1b[38;35;196m${HTML}\x1b[0m`)
  * @param {string} fileName 
  */
 function startServer(fileName){
-    var server = http.createServer(function(req,res){
-        fs.readFile(process.argv[3]+"\\"+fileName,function(err,data){
+    var server = createServer(function(req,res){
+        readFile(process.argv[3]+"\\"+fileName,function(err,data){
             if (err) throw err;
             res.write(data)
             return res.end()
@@ -96,7 +96,7 @@ for(i=0,i=100){
 }
 */
 function compile(){
-    fs.readFile(process.argv[3],function(err,data){
+    readFile(process.argv[3],function(err,data){
         if (err) throw err;
         let file = data.toString()
             .replaceAll("print(","call(print,")
@@ -119,14 +119,14 @@ throw new CompileError(sAZ)
     })
 }
 function WriteCompile(file){
-    fs.writeFile('compiled.cbjs',file,function(err){
+    writeFile('compiled.cbjs',file,function(err){
         console.log(err??"Compiled with no internal errors!")
     })
 }
 //End of Compile Section
 //Start of Interpret Section
 function interpret(){
-    fs.readFile('compiled.cbjs',function(err,data){
+    readFile('compiled.cbjs',function(err,data){
         if(err) throw err;
         var file = data.toString()
             .replaceAll("call(print,","console.log(")

@@ -10,13 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/BestSpark687090/Visual-Studio-Code-Projects.git"
   },
-  "author": "",
+  "author": "BestSpark687090",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/BestSpark687090/Visual-Studio-Code-Projects/issues"
   },
   "homepage": "https://github.com/BestSpark687090/Visual-Studio-Code-Projects#readme",
-  "devDependencies": {
-    "typescript": "^4.9.4"
-  }
+  "devDependencies": {}
 }

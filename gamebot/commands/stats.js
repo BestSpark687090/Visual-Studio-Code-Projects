@@ -17,11 +17,12 @@ If this is not provided, this will automatically get your stats.`)
     async execute(interaction){
         try{
         const person = interaction.options.getString('person')
+        
         // Get their stats from the JSON file and display them to the user only.
         const type = stats[person].Type
-        const hp = stats[person].HP
-        const gold = stats[person].Gold
-        const mp = stats[person].MP 
+        const hp = stats[person].HP.toString()
+        const gold = stats[person].Gold.toString()
+        const mp = stats[person].MP.toString()
         const statsEmbed = new EmbedBuilder()
         .setColor(0xff0000)
         .setTitle(`${person}'s Stats`)
@@ -31,10 +32,12 @@ If this is not provided, this will automatically get your stats.`)
             {name: "Gold", value: gold},
             {name: "MP", value: mp}
         )
-        .setFooter("Made by BestSpark687090")
+        .setFooter({text:"Made by BestSpark687090"})
+        
+        //await interaction.reply(`person is ${person},and stats:${type},${hp},${gold},${mp}`)
         await interaction.reply({content: "Here you go:",embeds: [statsEmbed]})
         }catch(e){
-            await interaction.reply(e)
+            console.log(e)
         }
    }
 }
